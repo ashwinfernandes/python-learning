@@ -2,19 +2,12 @@
 #         01234567890123
 parrot = "Norwegian Blue"
 
-print(parrot[0:6]) # Norweg
+print(parrot[0:6:2]) #Nre
+print(parrot[0:6:3]) #Nw
 
-print(parrot[-4:-2]) # Bl
-print(parrot[-4:12]) # Bl
+number = "9,223;372:036 854,775;807"
+separators = number[1::4]
+print(separators)
 
-print(parrot[-14:-8]) #Norweg
-print(parrot[-14:-8]) #Norweg
-
-print(parrot[-11:-9]) #we
-print(parrot[:-5]) #Norwegian
-print(parrot[-14:-5]) #Norwegian
-
-print(parrot[-4:14])
-print(parrot[-4:])
-
-print(parrot[:-5] + parrot[-5:])
+values = "".join(char if char not in separators else " " for char in number).split()
+print([int(val) for val in values])
