@@ -5,4 +5,5 @@ for number in numbers:
         # reject the list
         print("The numbers are unacceptable")
         break
-print("All those numbers are fine")
+else:
+    print("All those numbers are fine")
