@@ -15,4 +15,4 @@ if item_to_find in shopping_list:
 if found_at is not None:
     print("Item found at position {}".format(found_at))
 else:
-    print("{} not found".format(found_at))
+    print("{} not found".format(item_to_find))
