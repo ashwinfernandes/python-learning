@@ -29,6 +29,7 @@ while current_choice != '0':
         print("Please add options from the list below:")
         for number, part in enumerate(available_parts):
             print("{0}: {1}".format(number + 1, part))
+        print("0: to finish")
     current_choice = input()
 
 print(computer_parts)
