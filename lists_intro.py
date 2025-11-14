@@ -4,12 +4,11 @@ computer_parts = ["computer",
                   "mouse",
                   "mouse mat"
                   ]
+print(computer_parts)
 
-for part in computer_parts:
-    print(part)
+# computer_parts[3] = "trackball" # use direct assignment
+print(computer_parts[3:])
 
-print()
-print(computer_parts[2])
-
-print(computer_parts[0:3])
-print(computer_parts[-1])
+computer_parts[3:] = "trackball" # replaces "mouse" and "mouse mat" with the iterable string resulting in [..., 'keyboard', 't', 'r', 'a', 'c', 'k', 'b', 'a', 'l', 'l']
+computer_parts[3:] = ["trackball"] # replaces "mouse" and "mouse mat" with the list of strings resulting in [...., 'keyboard', 'trackball']
+print(computer_parts)
