@@ -21,8 +21,6 @@ while True:
     song_choice = int(input())
     if 1 <= song_choice <= len(songs_list):
         title = songs_list[song_choice - 1][SONG_TITLE_INDEX]
-    else:
-        break
+        print("Playing {}".format(title))
 
-    print("Playing {}".format(title))
     print("=" * 40)
