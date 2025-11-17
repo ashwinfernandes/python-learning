@@ -11,7 +11,7 @@ def is_palindrome(string):
 
 def is_palindrome_sentence(string):
     palindrome_sentence = "".join([char if char.isalnum() else '' for char in string.casefold()])
-    return palindrome_sentence[::-1] == palindrome_sentence
+    return is_palindrome(palindrome_sentence)
 
 
 # word = input("Please enter a word to check: ")
