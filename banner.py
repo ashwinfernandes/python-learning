@@ -1,4 +1,18 @@
-def banner_text(text=" ", screen_width = 80):
+def banner_text(text: str = " ", screen_width: int = 80) -> None:
+    """
+    Prints the provided banner text on the Stdout (stdout) stream.
+    The text is enclosed withing ** and centered within the provided
+    screen width.
+
+    Example: ** Always look on the light side of life **
+
+    :param text: The text to be printed out. Default: " ".
+    :param screen_width: The width of the screen within which the text
+        is centered. Default: 80.
+    :raises TypeError: if the screen_width is not of type integer.
+    :raises ValueError: if the length of the text is > (screen_width - 4).
+        Where 4 is the space occupied by the **.
+    """
     if not screen_width.is_integer():
         raise TypeError("The text width is not of type int. Expected integer. ")
 

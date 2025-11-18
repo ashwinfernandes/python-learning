@@ -1,15 +1,21 @@
-def multiply(x, y):
+def multiply(x: float, y: float) -> float:
     """
-    Multiplies two items and returns the result.
-    :param x: The multiplicand.
-    :param y: The multiplier.
-    :return: The product after multiplying the two items.
+    Multiplies two numbers and returns the result.
+
+    Although the function is intended to multiply two numbers, the
+    function also accepts sequence types. For example, if you pass
+    a sequence type such as a `string`, as the first argument `x`,
+    you'll get the string that is multiplied `y` number of times.
+
+    :param x: The number to multiply.
+    :param y: The number to multiply `x` with.
+    :return: The product after multiplying the two numbers.
     """
     result = x * y
     return result
 
 
-def is_palindrome(string):
+def is_palindrome(string: str) -> bool:
     """
     Verifies whether the provided string is a palindrome or not.
 
@@ -23,7 +29,7 @@ def is_palindrome(string):
     return string[::-1].casefold() == string.casefold()
 
 
-def is_palindrome_sentence(sentence):
+def is_palindrome_sentence(sentence: str) -> bool:
     """
     Verifies whether the provided sentence is a palindrome or not.
 
@@ -40,11 +46,12 @@ def is_palindrome_sentence(sentence):
 
 
 
-def fibonacci(n):
+def fibonacci(n: int) -> int:
     """
     Return the `n` th Fibonacci number, for positive `n`.
-    :return: the Fibonacci number for positive numbers
-    and `None` otherwise
+
+    :return: The Fibonacci number for positive numbers
+        and `None` otherwise.
     """
     if 0 <= n <= 1:
         return n
