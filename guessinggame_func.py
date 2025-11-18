@@ -18,6 +18,11 @@ def get_integer(prompt):
             return int(temp)
         print("{0} is not a valid number.".format(temp))
 
+print(input.__doc__)
+print("*" * 80)
+print(get_integer.__doc__)
+print("*" * 80)
+help(get_integer)
 
 highest = 1000
 answer = random.randint(1, highest)
