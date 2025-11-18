@@ -38,8 +38,27 @@ def is_palindrome_sentence(sentence):
     palindrome_sentence = "".join([char if char.isalnum() else '' for char in sentence.casefold()])
     return is_palindrome(palindrome_sentence)
 
-sentence = input("Please enter a sentence to check: ")
-if is_palindrome_sentence(sentence):
-    print("'{}' is a palindrome".format(sentence))
-else:
-    print("'{}' is not a palindrome".format(sentence))
+
+
+def fibonacci(n):
+    """
+    Return the `n` th Fibonacci number, for positive `n`.
+    :return: the Fibonacci number for positive numbers
+    and `None` otherwise
+    """
+    if 0 <= n <= 1:
+        return n
+
+    n_minus1, n_minus2 = 1, 0
+    result = None
+
+    for f in range(n - 1):
+        result = n_minus2 + n_minus1
+        n_minus2 = n_minus1
+        n_minus1 = result
+
+    return result
+
+
+for i in range(36):
+    print(i, fibonacci(i))
