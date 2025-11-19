@@ -16,5 +16,7 @@ vehicles["toy"] = "Glider"
 # Upgrade the Virago
 vehicles["virago"] = "Yamaha XV535"
 
+del vehicles["starfighter"]
+
 for key, value in vehicles.items():
     print(key, value, sep=", ")
