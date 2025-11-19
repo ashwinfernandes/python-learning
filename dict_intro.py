@@ -17,6 +17,16 @@ vehicles["toy"] = "Glider"
 vehicles["virago"] = "Yamaha XV535"
 
 del vehicles["starfighter"]
+# del vehicles["f1"]
+result = vehicles.pop("f1", "You wish! Sell the Learjet and you "
+                            "might afford a racing car.") # returns the default value
+print(result)
+plane = vehicles.pop("learjet") # returns the value from the dict
+print(plane)
+
+bike = vehicles.pop("tenere", "not present") # returns the value from the dict
+print(bike)
+print()
 
 for key, value in vehicles.items():
     print(key, value, sep=", ")
