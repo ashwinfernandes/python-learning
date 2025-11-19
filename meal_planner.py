@@ -8,8 +8,7 @@ def add_ingredients_to_shopping_cart(shopping_cart: dict, item: (str, int)):
     if it's already in `the shopping cart` or a new entry is created.
     """
     food_item, quantity = item
-    new_quantity = shopping_cart.get(food_item, 0) + quantity
-    shopping_cart[food_item] = new_quantity
+    shopping_cart[food_item] = shopping_cart.setdefault(food_item, 0) + quantity
 
 
 print("")
@@ -44,7 +43,7 @@ while True:
             else:
                 quantity_to_buy = require_quantity - quantity_in_pantry
                 print(f"\tYou need to buy {quantity_to_buy} of {ingredient}")
-                print(f"Adding {quantity_to_buy} of {ingredient} to shopping cart...")
+                print(f"\tAdding {quantity_to_buy} of {ingredient} to shopping cart...")
                 add_ingredients_to_shopping_cart(shopping_list, (ingredient, quantity_to_buy))
 
 for things in shopping_list.items():
