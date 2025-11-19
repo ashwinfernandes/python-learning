@@ -9,11 +9,8 @@ vehicles = {
     'fiesta': 'Ford Fiesta Ghia 1.4',
 }
 
-my_car = vehicles['fiesta']
-print(my_car)
+for key in vehicles:
+    print(key, vehicles[key], sep=", ")
 
-commuter = vehicles['virago']
-print(commuter)
-
-learner = vehicles.get("er5")
-print(learner)
+for key, value in vehicles.items():
+    print(key, value, sep=", ")
