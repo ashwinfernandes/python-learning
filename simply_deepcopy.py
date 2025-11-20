@@ -27,6 +27,3 @@ recipes_copy = my_deepcopy(recipes)
 recipes_copy["Butter chicken"]["ginger"] = 300
 print(recipes_copy["Butter chicken"]["ginger"])
 print(recipes["Butter chicken"]["ginger"])
-
-some_dict = {1: 1}
-print(my_deepcopy(some_dict))
