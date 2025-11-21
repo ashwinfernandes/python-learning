@@ -18,10 +18,34 @@ with open(input_filename) as country_file:
         }
         # print(country_dict)
         countries[country.casefold()] = country_dict
+        # countries[code.casefold()] = country_dict
 
 # print(countries)
-country = input("Please enter the name for a country: ")
-if country.casefold() in countries:
-    print(f"The capital of the {country} is {countries[country.casefold()]['capital']}")
-else:
-    print(f"Could not find the capital of {country}")
+for country, value in countries.items():
+    if len(value["capital"]) == 0:
+        print(f"{country} has no capital")
+
+    if len(value["country_code"]) == 0:
+        print(f"{country} has no country code")
+
+    if len(value["cc3"]) == 0:
+        print(f"{country} has no 3 digit country code")
+
+    if len(value["dialing_code"]) == 0:
+        print(f"{country} has no dialing code")
+
+    if len(value["timezone"]) == 0:
+        print(f"{country} has no timezone")
+
+    if len(value["currency"]) == 0:
+        print(f"{country} has no currency")
+
+while True:
+    country = input("Please enter the name for a country (type quit to exit): ")
+    country_key = country.casefold()
+    if country_key in countries:
+        print(f"The capital of the {country} is {countries[country_key]['capital']}")
+    elif country_key == 'quit':
+        break
+    else:
+        print(f"Could not find the capital of {country}")
