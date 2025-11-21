@@ -21,8 +21,7 @@ with open(input_filename) as country_file:
 
 # print(countries)
 country = input("Please enter the name for a country: ")
-found_entry = countries.get(country.casefold())
-if found_entry is not None:
-    print(f"The capital of the {country} is {found_entry['capital']}")
+if country.casefold() in countries:
+    print(f"The capital of the {country} is {countries[country.casefold()]['capital']}")
 else:
     print(f"Could not find the capital of {country}")
