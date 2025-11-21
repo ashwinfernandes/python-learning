@@ -16,7 +16,13 @@ with open(input_filename) as country_file:
             'timezone': timezone,
             'currency': currency
         }
-        print(country_dict)
+        # print(country_dict)
         countries[country.casefold()] = country_dict
 
-print(countries)
+# print(countries)
+country = input("Please enter the name for a country: ")
+found_entry = countries.get(country.casefold())
+if found_entry is not None:
+    print(f"The capital of the {country} is {found_entry['capital']}")
+else:
+    print(f"Could not find the capital of {country}")
