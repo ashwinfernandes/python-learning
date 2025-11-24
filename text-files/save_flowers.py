@@ -20,15 +20,31 @@ data = [
     "Witch Hazel - Shrub",
 ]
 
-plants_filename = "flowers_print.txt"
+# plants_filename = "flowers_print.txt"
+#
+# with open(plants_filename, "w") as plants:
+#     for plant in data:
+#         print(plant, file=plants)
+#
+# new_list = []
+# with open(plants_filename) as plants:
+#     for plant in plants:
+#         new_list.append(plant.rstrip())
+#
+# print(new_list)
+
+plants_filename = "flowers_write.txt"
 
 with open(plants_filename, "w") as plants:
     for plant in data:
-        print(plant, file=plants)
+        plants.write(plant)
 
-new_list = []
-with open(plants_filename) as plants:
-    for plant in plants:
-        new_list.append(plant.rstrip())
+filename = "test_numbers.txt"
+with open(filename, "w") as test:
+    for i in range(10):
+        print(i, file=test) # writes the __str__ representation of the int
 
-print(new_list)
+with open(filename, "w") as test:
+    for i in range(10):
+        # test.write(i) # write() cannot write integers to the text file
+        test.write(str(i) + "\n")
