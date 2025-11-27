@@ -5,7 +5,7 @@ def greet_pythons(items: list) -> None:
 
     def make_greeting(item: str) -> str:
         print(f'local namespace in `make_greeting`(1): {locals()}')
-        greeting = 'Hola'
+        greeting = 'Hola' # no longer a free variable. A new variable # is created in the local scope
         print(f'The ID of `greeting`in `make_greeting` is {id(greeting)}')
         print(f'local namespace in `make_greeting`(2): {locals()}')
         return f'{greeting} {item}'
