@@ -11,9 +11,11 @@ from math import radians, cos, sqrt
 
 def square(length: int) -> None:
     """Draws a square of length `length`"""
+    inner_forward = forward
+    inner_right = right
     for side in range(4):
-        forward(length)
-        right(90)
+        inner_forward(length)
+        inner_right(90)
 
 
 def encircled_square(length: int) -> None:
