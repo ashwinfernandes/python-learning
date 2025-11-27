@@ -32,10 +32,13 @@ def encircled_square(length: int) -> None:
 
 # encircled_square(300)
 speed('fast')
+Screen().tracer(0) # disable turtle animation
+
 for s in range(72):
     encircled_square(120)
     left(5)
 
+# Screen().update() # update the screen, is not required here because done() also updates the screen
 done()
 
 print(dir())
