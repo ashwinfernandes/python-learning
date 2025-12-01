@@ -12,12 +12,14 @@ label = tkinter.Label(main_window, text="Hello World")
 label.pack(side="top")
 
 left_frame = tkinter.Frame(main_window)
+# anchor only affects vertical position when packed to the left or right
 left_frame.pack(side="left", anchor="n", fill=tkinter.Y, expand=False)
 
 canvas = tkinter.Canvas(left_frame, relief="raised", borderwidth=1)
 canvas.pack(side ="left", anchor="n")
 
 right_frame = tkinter.Frame(main_window)
+# anchor only affects horizontal position when packed to the top or bottom
 right_frame.pack(side="right", anchor="n", expand=True)
 
 button1 = tkinter.Button(right_frame, text="button1")
