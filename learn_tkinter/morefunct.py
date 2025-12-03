@@ -12,9 +12,12 @@ def parabola(page, size):
         plot(page, x, y)
         plot(page, -x, y)
 
-
-def circle(page, radius, g, h):
-    page.create_oval(g + radius, h + radius, g - radius, h - radius, outline="red", width=2)
+# Modify the circle function so that it allows the colour of the circle to be specified
+# and defaults to red if a colour is not given. You may want to review the previous lectures
+# about named parameters and default values.
+#
+def circle(page, radius, g, h, colour="red"):
+    page.create_oval(g + radius, h + radius, g - radius, h - radius, outline=colour, width=2)
 
 
 def draw_axes(page):
@@ -41,14 +44,14 @@ draw_axes(canvas)
 
 parabola(canvas, 100)
 parabola(canvas, 200)
-circle(canvas, 100, 100, 100)
-circle(canvas, 100, 100, -100)
-circle(canvas, 100, -100, 100)
-circle(canvas, 100, -100, -100)
+circle(canvas, 100, 100, 100, "green")
+circle(canvas, 100, 100, -100, "yellow")
+circle(canvas, 100, -100, 100, colour="cyan")
+circle(canvas, 100, -100, -100, colour="magenta")
 circle(canvas, 10, 30, 30)
 circle(canvas, 10, 30, -30)
 circle(canvas, 10, -30, 30)
 circle(canvas, 10, -30, -30)
-circle(canvas, 30, 0, 0)
+circle(canvas, 30, 0, 0, "blue")
 
 main_window.mainloop()
