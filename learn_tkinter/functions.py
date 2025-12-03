@@ -14,11 +14,12 @@ def center_text(*args, sep=' ', end='\n', file=None, flush=False):
     print(" " * left_margin, text, end=end, file=file, flush=flush)
 
 
-# call the function
-center_text("Spam and eggs")
-center_text("Spam, spam and eggs")
-center_text(12)
-center_text("Spam, spam, spam and spam")
+with open("centered", mode='w') as centered_file:
+    # call the function
+    center_text("Spam and eggs", file=centered_file)
+    center_text("Spam, spam and eggs", file=centered_file)
+    center_text(12, file=centered_file)
+    center_text("Spam, spam, spam and spam", file=centered_file)
 
-# print("first", "second", 3, 4, "spam")
-center_text("first", "second", 3, 4, "spam", sep=':')
+    # print("first", "second", 3, 4, "spam")
+    center_text("first", "second", 3, 4, "spam", sep=':', file=centered_file)
