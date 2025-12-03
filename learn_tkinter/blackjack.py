@@ -6,7 +6,6 @@ except ImportError: # python 2
     import Tkinter as tkinter
 
 
-
 def load_images(card_images):
     suits = ["heart", "club", "diamond", "spade"]
     face_cards = ["jack", "queen", "king"]
@@ -41,7 +40,21 @@ def deal_card(frame):
 
 
 def deal_dealer():
-    deal_card(dealer_card_frame)
+    dealer_score = score_hand(dealer_hand)
+    while 0 < dealer_score < 17:
+        dealer_hand.append(deal_card(dealer_card_frame))
+        dealer_score = score_hand(dealer_hand)
+        dealer_score_label.set(dealer_score)
+
+    player_score = score_hand(player_hand)
+    if player_score > 21:
+        result_text.set("Dealer wins!")
+    elif dealer_score > 21 or dealer_score < player_score:
+        result_text.set("Player wins!")
+    elif dealer_score > player_score:
+        result_text.set("Dealer wins!")
+    else:
+        result_text.set("Draw!")
 
 
 def score_hand(hand):
@@ -69,6 +82,31 @@ def deal_player():
     player_score_label.set(player_score)
     if player_score > 21:
         result_text.set("Dealer wins!")
+
+
+def start_new_game():
+    for widget in dealer_card_frame.winfo_children():
+        widget.destroy()
+    for widget in player_card_frame.winfo_children():
+        widget.destroy()
+    deck.clear()
+    player_score_label.set(0)
+    dealer_score_label.set(0)
+    player_hand.clear()
+    dealer_hand.clear()
+    result_text.set("")
+    start_game()
+
+def start_game():
+    # Create a new deck of cards and shuffle them
+    deck.extend(cards)
+    random.shuffle(deck)
+
+    # Deal the first hand
+    deal_player()
+    dealer_hand.append(deal_card(dealer_card_frame))
+    dealer_score_label.set(score_hand(dealer_hand))
+    deal_player()
 
 
 main_window = tkinter.Tk()
@@ -109,16 +147,19 @@ dealer_button.grid(row=0, column=0)
 player_button = tkinter.Button(button_frame, text="Player", command=deal_player)
 player_button.grid(row=0, column=1)
 
+new_game_button = tkinter.Button(button_frame, text="New Game", command=start_new_game)
+new_game_button.grid(row=0, column=2)
+
 # load cards
 cards = []
 load_images(cards)
 print(cards)
-# Create a new deck of cards and shuffle them
-deck = list(cards)
-random.shuffle(deck)
 
 # Create the list to store the dealer's and player's hands
 dealer_hand = []
 player_hand = []
+deck = []
+
+start_game()
 
 main_window.mainloop()
