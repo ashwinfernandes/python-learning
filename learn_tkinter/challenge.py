@@ -87,10 +87,11 @@ def process_click(text: str):
     # append entry text if txt is number
     if text.isnumeric():
         # if arith_op_dict["operation"] != "" and
-        if display == arithmetic_operation_dict["operand"] or display == NOT_A_NUMBER:
+        if start_new_number.get() or display == NOT_A_NUMBER:
             display = text
         else:
             display = display + text if display != '' and display != '0' else text
+        start_new_number.set(False)
     elif text == "C":
         display = '0'
         reset_dict()
@@ -98,6 +99,7 @@ def process_click(text: str):
     elif text == "CE":
         display = '0'
     elif text == "=":
+        start_new_number.set(True)
         if arithmetic_operation_dict["operation"] not in ARITHMETIC_OPERATORS:
             # if no previous arithmetic operations were performed then do a simple assignment
             n1 = str(display) if display != "" else 0
@@ -110,6 +112,7 @@ def process_click(text: str):
         arithmetic_operation_dict["operation"] = ""
 
     elif text in ['+', '-', '*', '/']:
+        start_new_number.set(True)
         # set the first operand to the displayed number
         if arithmetic_operation_dict["operation"] == "":
             arithmetic_operation_dict["operand"] = display
@@ -150,6 +153,9 @@ main_window.rowconfigure(3, weight=1)
 main_window.rowconfigure(4, weight=1)
 main_window.rowconfigure(5, weight=1)
 main_window.rowconfigure(6, weight=1)
+
+start_new_number = tkinter.BooleanVar()
+start_new_number.set(False)
 
 # entry field for result
 entry_text = tkinter.StringVar()
