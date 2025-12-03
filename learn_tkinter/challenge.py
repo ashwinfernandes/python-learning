@@ -50,7 +50,7 @@ def calculate(number1: int, number2: int, operation: str) -> int:
         return number1 * number2
 
     if operation == "/":
-        return int(number1 / number2)
+        return number1 // number2
 
     return 0
 
