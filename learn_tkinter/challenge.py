@@ -21,11 +21,22 @@
 # width is already constrained and can't be resized too small.
 # The height will still need to be constrained, though.
 
-import tkinter
+try:
+    import tkinter
+except ImportError: # python2
+    import Tkinter as tkinter
 
 NOT_A_NUMBER = "Not a number"
 ARITHMETIC_OPERATORS = ['+', '-', '*', '/']
 
+list_buttons = [[('C', 1), ('CE', 1)],
+                [('7', 1), ('8', 1), ('9', 1), ('+', 1)],
+                [('4', 1), ('5', 1), ('6', 1), ('-', 1)],
+                [('1', 1), ('2', 1), ('3', 1), ('*', 1)],
+                [('0', 1), ('=', 2), ('/', 1)]
+                ]
+
+main_window_padding = 10
 
 def calculate(number1: int, number2: int, operation: str) -> int:
     """Calculates the result of the operation applied to the two numbers"""
@@ -49,33 +60,6 @@ arithmetic_operation_dict = {
     "operation": ''
 }
 
-main_window = tkinter.Tk()
-main_window.geometry('240x240+8+200')
-main_window.title("Calculator")
-main_window["padx"] = 10
-
-main_window.columnconfigure(0, weight=1)
-main_window.columnconfigure(1, weight=1)
-main_window.columnconfigure(2, weight=1)
-main_window.columnconfigure(3, weight=1)
-main_window.columnconfigure(4, weight=1)
-main_window.columnconfigure(5, weight=10)
-main_window.rowconfigure(0, weight=1)
-main_window.rowconfigure(1, weight=1)
-main_window.rowconfigure(2, weight=1)
-main_window.rowconfigure(3, weight=1)
-main_window.rowconfigure(4, weight=1)
-main_window.rowconfigure(5, weight=1)
-main_window.rowconfigure(6, weight=5)
-
-# what do we need entry field, buttons, functions+command
-
-# entry field for result
-entry_text = tkinter.StringVar()
-entry_text.set('0')
-result = tkinter.Entry(main_window, border=2, relief="sunken", textvariable=entry_text, justify="right")
-result.grid(row=0, column=0, columnspan=4, sticky="news")
-
 
 def perform_arithmetic_operation(operation: str, operand1: str, operand2: str) -> str:
     if operation == "/" and operand2 == '0':
@@ -91,6 +75,7 @@ def perform_arithmetic_operation(operation: str, operand1: str, operand2: str) -
         # calculate the result and then set operand to the result
         equals_result = calculate(n1, n2, operation)
         return str(equals_result)
+
 
 def reset_dict() -> None:
     """Resets the arithmetic_operation_dict dictionary"""
@@ -147,45 +132,55 @@ def clicked(btn: tkinter.Button):
     process_click(button_txt)
 
 
-# frame for the buttons
-button_frame = tkinter.Frame(main_window)
-button_frame.grid(row=1, column=0, columnspan=4, rowspan=5, sticky="news")
-button_frame.columnconfigure(0, weight=1)
-button_frame.columnconfigure(1, weight=1)
-button_frame.columnconfigure(2, weight=1)
-button_frame.columnconfigure(3, weight=1)
+main_window = tkinter.Tk()
+main_window.geometry('240x240+8+200')
+main_window.title("Calculator")
+main_window["padx"] = main_window_padding
 
-list_buttons = [('C', 0, 0),
-                ('CE', 0, 1),
-                ('7', 1, 0),
-                ('8', 1, 1),
-                ('9', 1, 2),
-                ('+', 1, 3),
-                ('4', 2, 0),
-                ('5', 2, 1),
-                ('6', 2, 2),
-                ('-', 2, 3),
-                ('1', 3, 0),
-                ('2', 3, 1),
-                ('3', 3, 2),
-                ('*', 3, 3),
-                ('0', 4, 0),
-                ('=', 4, 1),
-                ('/', 4, 3)]
+main_window.columnconfigure(0, weight=1)
+main_window.columnconfigure(1, weight=1)
+main_window.columnconfigure(2, weight=1)
+main_window.columnconfigure(3, weight=1)
+main_window.columnconfigure(4, weight=1)
+main_window.columnconfigure(5, weight=1)
+main_window.rowconfigure(0, weight=1)
+main_window.rowconfigure(1, weight=1)
+main_window.rowconfigure(2, weight=1)
+main_window.rowconfigure(3, weight=1)
+main_window.rowconfigure(4, weight=1)
+main_window.rowconfigure(5, weight=1)
+main_window.rowconfigure(6, weight=1)
+
+# entry field for result
+entry_text = tkinter.StringVar()
+entry_text.set('0')
+result = tkinter.Entry(main_window, border=2, relief="sunken", textvariable=entry_text, justify="right")
+result.grid(row=0, column=0, columnspan=4, sticky="nsew")
+
+# frame for the buttons
+key_pad = tkinter.Frame(main_window)
+key_pad.grid(row=1, column=0, columnspan=4, rowspan=5, sticky="nsew")
+key_pad.columnconfigure(0, weight=1)
+key_pad.columnconfigure(1, weight=1)
+key_pad.columnconfigure(2, weight=1)
+key_pad.columnconfigure(3, weight=1)
 
 final_result = 0
 
-for btn_config in list_buttons:
-    txt, row, column = btn_config
-    btn = tkinter.Button(button_frame, text=txt)
-    btn.config(command=lambda button=btn: clicked(button))
-    if txt == "=":
-        btn.grid(row=row, column=column, columnspan=2, sticky="new")
-        continue
-    btn.grid(row=row, column=column, sticky="new")
+row = 0
+for key_row in list_buttons:
+    col = 0
+    for key in key_row:
+        txt, column_span = key
+        btn = tkinter.Button(key_pad, text=txt)
+        btn.grid(row=row, column=col, columnspan=column_span, sticky=tkinter.E + tkinter.W)
+        btn.config(command=lambda button=btn: clicked(button))
+        col += column_span
+    row += 1
 
 main_window.update()
 
-main_window.minsize(main_window.winfo_width(), main_window.winfo_width())
+main_window.minsize(key_pad.winfo_width() + main_window_padding, result.winfo_height() + key_pad.winfo_height())
+main_window.maxsize(key_pad.winfo_width() + 50 + main_window_padding, result.winfo_height() + 50 + key_pad.winfo_height())
 
 main_window.mainloop()
