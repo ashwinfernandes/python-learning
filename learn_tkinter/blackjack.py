@@ -103,6 +103,13 @@ def deal_player():
         dealer_wins()
 
 
+def initial_deal():
+    deal_player()
+    dealer_hand.append(deal_card(dealer_card_frame))
+    dealer_score_label.set(score_hand(dealer_hand))
+    deal_player()
+
+
 def start_new_game():
     global dealer_card_frame
     global player_card_frame
@@ -124,15 +131,15 @@ def start_new_game():
     # Create the list to store the dealer's and player's hands
     dealer_hand = []
     player_hand = []
-
-    deal_player()
-    dealer_hand.append(deal_card(dealer_card_frame))
-    dealer_score_label.set(score_hand(dealer_hand))
-    deal_player()
-
+    initial_deal()
 
 def shuffle():
     random.shuffle(deck)
+
+
+def play():
+    initial_deal()
+    main_window.mainloop()
 
 
 main_window = tkinter.Tk()
@@ -151,8 +158,6 @@ card_frame.grid(row=1, column=0, sticky="ew", columnspan=3, rowspan=2)
 
 total_score_frame = tkinter.Frame(main_window, background="green", borderwidth=2, relief="raised")
 total_score_frame.grid(row=1, column=3, sticky="ew", columnspan=2, rowspan=2, padx=10)
-total_score_frame.columnconfigure(0, weight=1)
-total_score_frame.columnconfigure(1, weight=1)
 
 tkinter.Label(total_score_frame, text="Wins", background="green", fg="white", width=10).grid(row=0, column=1)
 tkinter.Label(total_score_frame, text="Dealer", background="green", fg="white").grid(row=1, column=0)
@@ -208,6 +213,6 @@ shuffle()
 # Create the list to store the dealer's and player's hands
 dealer_hand = []
 player_hand = []
-start_new_game()
 
-main_window.mainloop()
+if __name__ == "__main__":
+    play()
