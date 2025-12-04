@@ -1,4 +1,5 @@
 import random
+from tkinter import IntVar
 
 try:
     import tkinter
@@ -43,20 +44,36 @@ def deal_card(frame):
 
 def deal_dealer():
     dealer_score = score_hand(dealer_hand)
+    player_score = score_hand(player_hand)
+
+    if is_bust(player_score):
+        return dealer_wins()
+
     while 0 < dealer_score < 17:
         dealer_hand.append(deal_card(dealer_card_frame))
         dealer_score = score_hand(dealer_hand)
         dealer_score_label.set(dealer_score)
 
-    player_score = score_hand(player_hand)
-    if player_score > 21:
-        result_text.set("Dealer wins!")
-    elif dealer_score > 21 or dealer_score < player_score:
-        result_text.set("Player wins!")
+    if is_bust(dealer_score) or dealer_score < player_score:
+        player_wins()
     elif dealer_score > player_score:
-        result_text.set("Dealer wins!")
+        dealer_wins()
     else:
         result_text.set("Draw!")
+
+
+def dealer_wins():
+    result_text.set("Dealer wins!")
+    total_score_dealer.set(total_score_dealer.get() + 1)
+
+
+def player_wins():
+    result_text.set("Player wins!")
+    total_score_player.set(total_score_player.get() + 1)
+
+
+def is_bust(score: int) -> bool:
+    return score > 21
 
 
 def score_hand(hand):
@@ -71,7 +88,7 @@ def score_hand(hand):
             card_value = 11
         score += card_value
         # if we would bust, check if there is an ace and subtract 10
-        if score > 21 and ace:
+        if is_bust(score) and ace:
             score -= 10
             ace = False
     return score
@@ -82,8 +99,8 @@ def deal_player():
     player_score = score_hand(player_hand)
 
     player_score_label.set(player_score)
-    if player_score > 21:
-        result_text.set("Dealer wins!")
+    if is_bust(player_score):
+        dealer_wins()
 
 
 def start_new_game():
@@ -131,6 +148,23 @@ result.grid(row=0, column=0, columnspan=3)
 
 card_frame = tkinter.Frame(main_window, relief="sunken", borderwidth=1, background="green")
 card_frame.grid(row=1, column=0, sticky="ew", columnspan=3, rowspan=2)
+
+total_score_frame = tkinter.Frame(main_window, background="green", borderwidth=2, relief="raised")
+total_score_frame.grid(row=1, column=3, sticky="ew", columnspan=2, rowspan=2, padx=10)
+total_score_frame.columnconfigure(0, weight=1)
+total_score_frame.columnconfigure(1, weight=1)
+
+tkinter.Label(total_score_frame, text="Wins", background="green", fg="white", width=10).grid(row=0, column=1)
+tkinter.Label(total_score_frame, text="Dealer", background="green", fg="white").grid(row=1, column=0)
+tkinter.Label(total_score_frame, text="Player", background="green", fg="white").grid(row=2, column=0)
+
+total_score_player = tkinter.IntVar()
+total_score_player.set(0)
+total_score_dealer = tkinter.IntVar()
+total_score_dealer.set(0)
+
+tkinter.Label(total_score_frame, textvariable=total_score_dealer, background="green", fg="white").grid(row=1, column=1)
+tkinter.Label(total_score_frame, textvariable=total_score_player, background="green", fg="white").grid(row=2, column=1)
 
 dealer_score_label = tkinter.IntVar()
 tkinter.Label(card_frame, text="Dealer", background="green", fg="white").grid(row=0, column=0)
