@@ -4,7 +4,13 @@ import os
 def list_directories(s):
 
     def dir_list(d):
-        nonlocal tab_stop
+        nonlocal tab_stop # looks for variables in the enclosing scope
+
+        # global tab_stop will look for a variable at the module level.
+        # The important thing to note here is, that if the variable does not exist
+        # in the module level, python creates one at the module level
+        # same does not apply to nonlocal keyword
+
         files = os.listdir(d)
         for f in files:
             current_dir = os.path.join(d, f)
