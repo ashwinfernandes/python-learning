@@ -3,7 +3,7 @@ class Song:
 
     Attributes:
         title (str): The title of the song
-        artist (Artist): An artist object representing the songs creator.
+        artist (str): The name of the songs creator.
         duration (int): The duration of the song in seconds. May be zero.
     """
 
@@ -24,7 +24,7 @@ class Album:
     Attributes:
         name (str): The name of the album
         year (int): The year the album was released.
-        artist: (Artist): The artist responsible for the album.
+        artist: (str): The name of the artist responsible for the album.
             If not specified, the artist will default to an artist with the name
             "Various artists".
         tracks (List[Song]): A list of the songs on the album.
@@ -33,13 +33,10 @@ class Album:
         add_song: Used to add a new song to the album's track list.
     """
 
-    def __init__(self, name, year, artist=None):
+    def __init__(self, name, year, artist="Various Artists"):
         self.name = name
         self.year = year
-        if artist is None:
-            self.artist = Artist("Various Artists")
-        else:
-            self.artist = artist
+        self.artist = artist
 
         self.tracks = []
 
@@ -101,7 +98,7 @@ class Artist:
         album_found = find_object(name, self.albums)
         if album_found is None:
             print(name + " no found.")
-            album_found = Album(name, year, self)
+            album_found = Album(name, year, self.name)
             self.add_album(album_found)
         else:
             print("Found album " + name)
